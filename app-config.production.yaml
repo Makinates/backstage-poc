@@ -2,6 +2,16 @@ app:
   # Should be the same as backend.baseUrl when using the `app-backend` plugin.
   baseUrl: http://localhost:7007
 
+integrations:
+  github:
+    - host: github.com
+      apps:
+        - appId: ${AUTH_ORG_APP_ID}
+          clientId: ${AUTH_ORG_CLIENT_ID}
+          clientSecret: ${AUTH_ORG_CLIENT_SECRET}
+          privateKey: ${AUTH_ORG1_PRIVATE_KEY}
+          webhookSecret: ${AUTH_ORG_WEBHOOK_SECRET}
+
 backend:
   # Note that the baseUrl should be the URL that the browser and other clients
   # should use when communicating with the backend, i.e. it needs to be
