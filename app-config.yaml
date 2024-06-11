@@ -32,11 +32,11 @@ backend:
     connection: ':memory:'
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
 
-# integrations:
-#   github:
-#     - host: github.com
-#       apps:
-#         - $include: github-app-backstage-devenv-credentials.yaml
+integrations:
+  github:
+    - host: github.com
+      apps:
+        - $include: github-app-backstage-devenv-credentials.yaml
 #       # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
 #       # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/locations#configuration
 #       # token: ${GITHUB_TOKEN}
@@ -45,15 +45,15 @@ backend:
 #     #   apiBaseUrl: https://ghe.example.net/api/v3
 #     #   token: ${GHE_TOKEN}
 
-integrations:
-  github:
-    - host: github.com
-      apps:
-        - appId: ${AUTH_ORG_APP_ID}
-          clientId: ${AUTH_ORG_CLIENT_ID}
-          clientSecret: ${AUTH_ORG_CLIENT_SECRET}
-          privateKey: ${AUTH_ORG1_PRIVATE_KEY}
-          webhookSecret: ${AUTH_ORG_WEBHOOK_SECRET}
+# integrations:
+#   github:
+#     - host: github.com
+#       apps:
+#         - appId: ${AUTH_ORG_APP_ID}
+#           clientId: ${AUTH_ORG_CLIENT_ID}
+#           clientSecret: ${AUTH_ORG_CLIENT_SECRET}
+#           privateKey: ${AUTH_ORG1_PRIVATE_KEY}
+#           webhookSecret: ${AUTH_ORG_WEBHOOK_SECRET}
 
 proxy:
   ### Example for how to add a proxy endpoint for the frontend.
@@ -118,6 +118,16 @@ catalog:
     - type: file
       target: ../../examples/entities.yaml
 
+    - type: file
+      target: ../../examples/exmaple-application/example-app.yaml
+      rules:
+        - allow: [Component, System, API, Resource, Location]
+
+    - type: file
+      target: ../../examples/exmaple-application/user-api-component.yaml
+      rules:
+        - allow: [Component, System, API, Resource, Location]
+
     # Local example template
     - type: file
       target: ../../examples/template/template.yaml
@@ -163,3 +173,14 @@ catalog:
     #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme-corp.yaml
     #   rules:
     #     - allow: [User, Group]
+kubernetes:
+  serviceLocatorMethod:
+    type: 'multiTenant'
+  clusterLocatorMethods:
+    - type: 'config'
+      clusters:
+        - url: kubernetes.default.svc.cluster.local:443
+          name: local
+          authProvider: 'serviceAccount'
+          skipTLSVerify: false
+          skipMetricsLookup: true
