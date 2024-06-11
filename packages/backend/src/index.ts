@@ -28,6 +28,7 @@ backend.add(
   import('@backstage/plugin-catalog-backend-module-scaffolder-entity-model'),
 );
 backend.add(import('@backstage/plugin-catalog-backend-module-github-org'));
+backend.add(import('@backstage/plugin-kubernetes-backend/alpha'));
 
 // permission plugin
 backend.add(import('@backstage/plugin-permission-backend/alpha'));

@@ -118,6 +118,16 @@ catalog:
     - type: file
       target: ../../examples/entities.yaml
 
+    - type: file
+      target: ../../examples/exmaple-application/example-app.yaml
+      rules:
+        - allow: [Component, System, API, Resource, Location]
+
+    - type: file
+      target: ../../examples/exmaple-application/user-api-component.yaml
+      rules:
+        - allow: [Component, System, API, Resource, Location]
+
     # Local example template
     - type: file
       target: ../../examples/template/template.yaml
@@ -163,3 +173,14 @@ catalog:
     #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme-corp.yaml
     #   rules:
     #     - allow: [User, Group]
+kubernetes:
+  serviceLocatorMethod:
+    type: 'multiTenant'
+  clusterLocatorMethods:
+    - type: 'config'
+      clusters:
+        - url: kubernetes.default.svc.cluster.local:443
+          name: local
+          authProvider: 'serviceAccount'
+          skipTLSVerify: false
+          skipMetricsLookup: true
