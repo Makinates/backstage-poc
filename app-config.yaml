@@ -1,6 +1,6 @@
 app:
   title: ${COMPANY_NAME} Backstage App
-  baseUrl: http://localhost:3000
+  baseUrl: https://localhost:3000
 
 organization:
   name: ${COMPANY_NAME}
@@ -12,7 +12,8 @@ backend:
   # auth:
   #   keys:
   #     - secret: ${BACKEND_SECRET}
-  baseUrl: http://localhost:7007
+  baseUrl: https://localhost:7007
+
   listen:
     port: 7007
     # Uncomment the following host directive to bind to specific interfaces
@@ -70,7 +71,7 @@ proxy:
 techdocs:
   builder: 'local' # Alternatives - 'external'
   generator:
-    runIn: 'docker' # Alternatives - 'local'
+    runIn: 'local' # Alternatives - 'local'
   publisher:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
 
@@ -88,6 +89,10 @@ auth:
           - resolver: usernameMatchingUserEntityName
           # - resolver: emailMatchingUserEntityProfileEmail
           # - resolver: emailLocalPartMatchingUserEntityName
+  # experimentalExtraAllowedOrigins:
+  #   - http://localhost:3000
+  #   - http://backstage.k8s.beginlearning.io/
+  #   - https://backstage.k8s.beginlearning.io/
 
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
@@ -106,13 +111,6 @@ catalog:
       schedule:
         frequency: { minutes: 1 }
         timeout: { minutes: 1 }
-    # githubOrg:
-    #   id: <your-org>
-    #   orgs: [<yourOrg>]
-    #   githubUrl: https://github.com/
-    #   schedule:
-    #     frequency: PT30M
-    #     timeout: PT30S
   locations:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
     - type: file
